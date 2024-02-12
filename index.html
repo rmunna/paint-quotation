@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quotation Page</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="./app_css.css"  rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <style>
+
+  </style>
+</head>
+<body>
+  <div class="formbold-main-wrapper">
+  <!-- Author: FormBold Team -->
+  <!-- Learn More: https://formbold.com -->
+  <div class="formbold-form-wrapper" style="box-shadow: 0 4px 4px rgba(87,100,126,.21)">
+     <img src="logo.png"  style="margin-bottom: 25px; max-width:80%;">
+     <hr/>
+     <label style="text-align:center;margin-bottom: 40px;color: #363479;font-size: 30px;" class="formbold-form-label">Quotation</label>
+  <div class="container mt-5">
+    <label style="padding: 5px 5px;color: #363479;font-size: 16px;" class="formbold-form-label">Customer details</label>
+    <form id="customerForm">
+
+      <div class="row">
+        <div class="form-group formbold-input-flex col-sm-12 col-md-6">
+          <div>
+          <label for="name" class="formbold-form-label">Name:</label>
+          <input type="text" class="form-control formbold-form-input id="name" name="name">
+          </div>
+        </div>
+        <div class="form-group formbold-input-flex col-sm-12 col-md-6">
+          <div>
+          <label for="phone" class="formbold-form-label">Phone Number:</label>
+          <input type="tel" class="form-control formbold-form-input" id="phone" name="phone">
+          </div>
+        </div>
+        <div class="form-group formbold-input-flex col-sm-12 col-md-6">
+          <div>
+          <label for="address" class="formbold-form-label">Address:</label>
+          <textarea class="form-control formbold-form-input" id="address" name="address"></textarea>
+          </div>
+        </div>
+      </div>
+
+
+
+<!-- Items -->
+
+     <label style="padding: 5px 5px;color: #363479;font-size: 16px;" class="formbold-form-label">Item details</label>
+      <div id="items">
+        <div class="form-row mb-3 item-row row formbold-input-flex">
+          <div class="formbold-input-flex col-sm-12 col-md-4">
+            <select class="form-control formbold-form-input product-class form-change" name="product[]" style="padding:0px;">
+             
+            </select>
+          </div>
+          
+          <div class="formbold-input-flex col-sm-12 col-md-3">
+             <select class="form-control formbold-form-input unit-class form-change" name="unit[]"  style="padding: 0px;">
+             
+            </select>
+          </div>
+          <div class="formbold-input-flex col-sm-12 col-md-1">
+            <input type="text" class="form-control formbold-form-input quantity_class form-change" name="quantity[]" value="1" placeholder="Quantity">
+          </div>
+          <div class="formbold-input-flex col-sm-12 col-md-2">
+            <input type="number"  class="form-control formbold-form-input price_class" name="price[]" autocomplete="off">
+          </div>
+          <div class="formbold-input-flex col-sm-12 col-md-2">
+            <div class="row">
+              
+             <div class="col-sm-6" style="text-align:center;">
+              <button type="button" class="btn btn-outline-danger remove-item"><i class="fas fa-trash-alt"></i></button>
+
+            </div>
+            </div>
+            
+          </div>
+
+          
+        </div>
+
+        
+      </div>
+
+        <button type="button" class="btn btn-outline-success btn-sm" id="addItem" style="margin-bottom:15px;">Add more Items </button>
+
+
+
+<!-- Labour Service -->
+       <label style="padding: 5px 5px;color: #363479;font-size: 16px;" class="formbold-form-label">Labour Service</label>
+      <div id="labour_entries">
+        <div class="form-row mb-3 labour-row row formbold-input-flex">
+          <div class="formbold-input-flex col-sm-12 col-md-4">
+            <select class="form-control formbold-form-input labour_type_class form-change" name="labour_type[]" style="padding:0px;">
+             
+            </select>
+          </div>
+          
+         
+          <div class="formbold-input-flex col-sm-12 col-md-3">
+            <input type="text" class="form-control formbold-form-input labour_quantity_class form-change" name="labour_quantity[]" value="1" placeholder="Days">
+          </div>
+          <div class="formbold-input-flex col-sm-12 col-md-3">
+            <input type="number"  class="form-control formbold-form-input labour_price_class" name="labour_price[]" autocomplete="off">
+          </div>
+
+          <div class="formbold-input-flex col-sm-12 col-md-2">
+            <div class="row">
+              
+             <div class="col-sm-6" style="text-align:center;">
+              <button type="button" class="btn btn-outline-danger remove-item"><i class="fas fa-trash-alt"></i></button>
+
+            </div>
+            
+            </div>
+            
+            
+          </div>
+
+        </div>
+      </div>
+
+         <button type="button" class="btn btn-outline-success btn-sm" id="addLabour" style="margin-bottom:15px;">Add more services </button>
+
+
+
+      
+     <div style="text-align: center;">
+      <button type="button" class="btn formbold-btn" id="generateQuotationBtn">Generate Quotation</button>
+    </div>
+
+
+
+
+
+
+    <hr/>
+
+      <div id="quotationSection" style="display: none;">
+        <label style="text-align:center;margin-bottom: 40px;color: #363479;font-size: 30px;" class="formbold-form-label">Quotation</label>
+        
+
+
+         <div class="company_address" style="display: inline-block;width: 65%;margin-bottom: 20px;">
+           <label style="font-size:18px;">Unified Healer Sealer</label><br/>
+           <label>Dr.no.7-237/A, Opposite Gopalakrishna theater,</label><br/>
+           <label>Goutham budha road, Mangalagiri</label><br/>
+           <label>Guntur District, AP. Pin- 522503</label><br/>
+
+         </div> 
+
+         <div class="gst" style="display: inline-block;">
+           <label>GST No : 29GGGGG1314R9Z6</label><br/>
+           <label >Date :<span id="today_date"></span> </label><br/>
+         </div> 
+
+
+        <div id="customerDetails"></div>
+        <table class="table item-table table-bordered">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Unit</th>
+              <th>Price</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody id="quotationTableBody">
+            <!-- Quotation items will be appended here -->
+          </tbody>
+        </table>
+        
+      </div>
+
+      <div style="text-align: center;">
+                <button type="button" style="display: none;" class="btn formbold-btn" onclick='exportPdf()' id="printBtn">Download</button>
+              </div>
+      
+    </form>
+  </div>
+
+   <!-- jsPDF -->
+   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script> -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Font Awesome JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+ 
+  <script>
+    $(document).ready(function(){
+
+    var products_data =[
+    {
+      "product_name": "Healer Sealer 007",
+      "unit_price":[
+      {
+        "unit": "20 ltrs",
+        "price": 10000
+      },
+      {
+        "unit": "5 ltrs",
+        "price": 3000
+      },
+        {
+        "unit": "1 ltr",
+        "price": 1000
+      }
+      ]
+    },
+
+    {
+      "product_name": "Paintocon 2X",
+      "unit_price":[
+      {
+        "unit": "25 ltrs",
+        "price": 12000
+      },
+      {
+        "unit": "5 ltrs",
+        "price": 3500
+      },
+        {
+        "unit": "1 ltr",
+        "price": 900
+      }
+      ]
+    },
+
+    {
+      "product_name": "Roof Healer Sealer",
+      "unit_price":[
+      {
+        "unit": "30 ltrs",
+        "price": 12500
+      },
+      {
+        "unit": "3 ltrs",
+        "price": 4000
+      },
+        {
+        "unit": "1 ltr",
+        "price": 800
+      }
+      ]
+    },
+
+    {
+      "product_name": "HDPE mesh",
+      "unit_price":[
+      {
+        "unit": "10 ltrs",
+        "price": 22000
+      },
+      {
+        "unit": "3 ltrs",
+        "price": 4000
+      },
+        {
+        "unit": "1 ltr",
+        "price": 600
+      }
+      ]
+    }
+      
+      ];
+
+    var labour_data =[
+      {
+        "type" : "Labour" ,
+        "price": 500
+      },
+      {
+        "type" : "Supervisor" ,
+        "price": 800
+      }
+
+      ];
+      
+
+      $(document).ready(function(){
+        var str="";
+          for(var i=0;i<products_data.length;i++){
+            str+=  "<option value=\""+products_data[i].product_name+"\">"+products_data[i].product_name+"</option>";
+          }
+
+          $('.product-class').html(str);
+
+          str="";
+          for(var i=0;i<products_data[0].unit_price.length;i++){
+            str+=  "<option value=\""+products_data[0].unit_price[i].unit+"\">"+products_data[0].unit_price[i].unit+"</option>";
+          }
+
+          $('.unit-class').html(str);
+          $('.quantity_class').val(1);
+          $('.price_class').val(products_data[0].unit_price[0].price);
+
+
+          str="";
+          for(var i=0;i<labour_data.length;i++){
+            str+=  "<option value=\""+labour_data[i].type+"\">"+labour_data[i].type+"</option>";
+          }
+          $('.labour_type_class').html(str);
+          $('.labour_quantity_class').val(1);
+          $('.labour_price_class').val(labour_data[0].price);
+
+
+
+      $('#items').on('change', '.product-class', function() {
+          var str="";
+         
+          for(var i=0;i<products_data.length;i++){
+            if($(this).val()==products_data[i].product_name){
+              for(var j=0;j<products_data[i].unit_price.length;j++){
+
+              str+=  "<option value=\""+products_data[i].unit_price[j].unit+"\">"+products_data[i].unit_price[j].unit+"</option>";
+            }
+            }
+          }
+
+        $(this).parents('.form-row').find('.unit-class').html(str);
+        calculateProductPrice($(this));
+      });
+
+       $('#items').on('change', '.unit-class', function() {
+          calculateProductPrice($(this));
+       });
+
+
+      $('#items').on('change', '.quantity_class', function() {
+        calculateProductPrice($(this));
+
+      });
+
+
+/*
+    $('.product-class').change(function(){
+        var str="";
+         
+          for(var i=0;i<products_data.length;i++){
+            if($(this).val()==products_data[i].product_name){
+              for(var j=0;j<products_data[i].unit_price.length;j++){
+
+              str+=  "<option value=\""+products_data[i].unit_price[j].unit+"\">"+products_data[i].unit_price[j].unit+"</option>";
+            }
+            }
+          }
+
+        $(this).parents('.form-row').find('.unit-class').html(str);
+        calculateProductPrice($(this));
+      });
+
+    $('.unit-class').change(function(){
+          calculateProductPrice($(this));
+       });
+
+
+     $('.quantity_class').change(function(){
+        calculateProductPrice($(this));
+
+      });
+      */
+
+     function calculateProductPrice(thisobj){
+      var product = thisobj.parents('.form-row').find('.product-class').val();
+        var unit = thisobj.parents('.form-row').find('.unit-class').val();
+         var quantity = thisobj.parents('.form-row').find('.quantity_class').val();
+     
+        var price =0;
+
+       for(var i=0;i<products_data.length;i++){
+            if(product==products_data[i].product_name){
+              for(var j=0;j<products_data[i].unit_price.length;j++){
+                if(unit==products_data[i].unit_price[j].unit){
+                  price = products_data[i].unit_price[j].price;
+                  break;
+              }
+            }
+            }
+          }
+
+          thisobj.parents('.form-row').find('.price_class').val(price * quantity);
+     }
+
+
+//labour service
+
+     // Labour on change
+
+     $('#labour_entries').on('change','.labour_type_class', function(){
+          calculateLabourPrice($(this));
+        
+      });
+
+
+
+     $('#labour_entries').on('change','.labour_quantity_class', function(){
+       
+          calculateLabourPrice($(this));
+
+      });
+
+     function calculateLabourPrice(thisobj){
+      var labour = thisobj.parents('.form-row').find('.labour_type_class').val();
+         var quantity = thisobj.parents('.form-row').find('.labour_quantity_class').val();
+     
+        var price =0;
+
+       for(var i=0;i<labour_data.length;i++){
+            if(labour==labour_data[i].type){
+              
+                  price = labour_data[i].price;
+                  break;
+              
+            }
+          }
+
+          thisobj.parents('.form-row').find('.labour_price_class').val(price * quantity);
+     }
+
+
+
+ var now = new Date();
+  var datetime = now.toLocaleString();
+
+  // Insert date and time into HTML
+  document.getElementById("today_date").innerHTML = datetime;
+
+
+      });
+
+      
+
+
+
+
+
+      // Add new row for item details
+      $("#addItem").click(function(){
+        var newRow = $(this).siblings('#items').children('.form-row').prop('outerHTML');
+        $("#items").append(newRow);
+      });
+
+    // Add new row for labour details
+      $("#addLabour").click(function(){
+        var newRow = $(this).siblings('#labour_entries').children('.form-row').prop('outerHTML');
+        $("#labour_entries").append(newRow);
+      });
+
+      
+
+      
+
+      // Remove item row
+      $(document).on('click', '.remove-item', function(){
+        $(this).closest('.form-row').remove();
+      });
+
+      // Generate Quotation button functionality
+      $("#generateQuotationBtn").click(function(){
+        $("#quotationSection").show();
+        $("#printBtn").show();
+        // Get customer details
+        var customerName = $("#name").val();
+        var customerPhone = $("#phone").val();
+        var customerAddress = $("#address").val();
+
+        var tt = '<table class="table customer-table table-bordered"> <thead><tr><th>Billing address</th></tr></thead><tbody><tr>';
+
+         tt+='<tr><td>'+customerName+'</td></tr>';
+          tt+='<tr><td>'+customerAddress+'</td></tr>';
+           tt+='<tr><td>Phone: '+customerPhone+'</td></tr>';
+          tt+='</tbody></table>';
+
+        
+        $("#customerDetails").html(tt);
+        // Clear previous quotation items
+        $("#quotationTableBody").empty();
+        // Append new quotation items
+
+        var totalPrice=0;
+        $(".item-row").each(function(){
+          var item = $(this).find("select[name='product[]']").val();
+          var quantity = $(this).find("input[name='quantity[]']").val();
+          var unit = $(this).find("select[name='unit[]']").val();
+          var price = $(this).find("input[name='price[]']").val();
+          var amount =  price;
+          var newRow = '<tr>' +
+            '<td>' + item + '</td>' +
+            '<td>' + quantity + '</td>' +
+            '<td>' + unit + '</td>' +
+            '<td>' + price + '</td>' +
+            '<td>' + new Intl.NumberFormat('en-IN').format(amount) + '</td>' +
+            '</tr>';
+          $("#quotationTableBody").append(newRow);
+          totalPrice+=parseInt(amount);
+        });
+
+
+            var newRow = '<tr><td colspan="4" style="text-align: right;font-weight: bold;">Total Amount (A)</td><td>'+new Intl.NumberFormat('en-IN').format(totalPrice)+'</td></tr>';
+            var gst =Math.round(totalPrice*0.18);
+            newRow += '<tr><td colspan="4" style="text-align: right;font-weight: bold;">GST 18% (B)</td><td>'+new Intl.NumberFormat('en-IN').format(gst)+'</td></tr>';
+            var grantTotal = totalPrice+gst;
+            newRow += '<tr><td colspan="4" style="text-align: right;font-weight: bold;">Grand Total (C = A+B)</td><td  style="font-weight: bold;">'+new Intl.NumberFormat('en-IN').format(grantTotal)+'</td></tr>';
+            $("#quotationTableBody").append(newRow);
+
+
+            //labour service
+
+            var labour_total=0;
+            $(".labour-row").each(function(){
+                  var item = $(this).find("select[name='labour_type[]']").val();
+                  var quantity = $(this).find("input[name='labour_quantity[]']").val();
+                  var price = $(this).find("input[name='labour_price[]']").val();
+                  var amount =  price;
+                  var newRow = '<tr>' +
+                    '<td>' + item + '</td>' +
+                    '<td>' + quantity + '</td>' +
+                    '<td>' + 1 + '</td>' +
+                    '<td>' + price + '</td>' +
+                    '<td>' + new Intl.NumberFormat('en-IN').format(amount) + '</td>' +
+                    '</tr>';
+                  $("#quotationTableBody").append(newRow);
+                  labour_total+=parseInt(amount);
+        });
+            if( $('.labour-row'). children(). length > 0){
+              var newRow = '<tr><td colspan="4" style="text-align: right;font-weight: bold;"> Labour charges (D)</td><td>'+new Intl.NumberFormat('en-IN').format(labour_total)+'</td></tr>';
+              newRow += '<tr><td colspan="4" style="text-align: right;font-weight: bold;">Product price +  Labour charges (E= C+D)</td><td>'+new Intl.NumberFormat('en-IN').format(grantTotal+labour_total)+'</td></tr>';
+              var serCharges =Math.round(labour_total*0.15);
+              newRow += '<tr><td colspan="4" style="text-align: right;font-weight: bold;">Service charges (F)</td><td>'+new Intl.NumberFormat('en-IN').format(serCharges)+'</td></tr>';
+              newRow += '<tr><td colspan="4" style="text-align: right;font-weight: bold;">Final Amount (E+F)</td><td style="font-weight: bold;">'+new Intl.NumberFormat('en-IN').format(grantTotal+labour_total+serCharges)+'</td></tr>';
+              $("#quotationTableBody").append(newRow);
+
+            }
+
+             
+
+
+      });
+
+    
+    });
+
+ var element = document.getElementById('quotationSection');
+      var opt = {
+        margin: 1,
+        filename: 'quotation.pdf',
+        image: {
+          type: 'jpeg',
+          quality: 0.98
+        },
+        html2canvas: {
+          scale: 2
+        },
+        jsPDF: {
+          unit: 'in',
+          format: 'letter',
+          orientation: 'portrait'
+        }
+      };
+
+      function exportPdf() {
+        html2pdf().set(opt).from(element).save(); 
+      }
+
+  </script>
+</body>
+</div>
+</div>
+</html>
