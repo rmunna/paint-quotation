@@ -30,8 +30,8 @@
       <div class="row">
         <div class="form-group formbold-input-flex col-sm-12 col-md-6">
           <div>
-          <label for="name" class="formbold-form-label">Name:</label>
-          <input type="text" class="form-control formbold-form-input id="name" name="name">
+          <label for="pname" class="formbold-form-label">Name:</label>
+          <input type="text" class="form-control formbold-form-input" id="pname" name="pname">
           </div>
         </div>
         <div class="form-group formbold-input-flex col-sm-12 col-md-6">
@@ -52,13 +52,16 @@
 
 <!-- Items -->
 
-     <label style="padding: 5px 5px;color: #363479;font-size: 16px;" class="formbold-form-label">Item details</label>
+     <label style="padding: 5px 5px;color: #363479;font-size: 16px;display: inline-block;" class="formbold-form-label">Item details</label> <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#exampleModal">
+  View details
+</button>
       <div id="items">
         <div class="form-row mb-3 item-row row formbold-input-flex">
           <div class="formbold-input-flex col-sm-12 col-md-4">
             <select class="form-control formbold-form-input product-class form-change" name="product[]" style="padding:0px;">
              
             </select>
+            <input type="hidden" class='prd_desc_class' name="prd_desc[]">
           </div>
           
           <div class="formbold-input-flex col-sm-12 col-md-3">
@@ -93,7 +96,8 @@
 
 
 
-<!-- Labour Service -->
+
+<!-- Labour Service 
        <label style="padding: 5px 5px;color: #363479;font-size: 16px;" class="formbold-form-label">Labour Service</label>
       <div id="labour_entries">
         <div class="form-row mb-3 labour-row row formbold-input-flex">
@@ -129,9 +133,44 @@
 
          <button type="button" class="btn btn-outline-success btn-sm" id="addLabour" style="margin-bottom:15px;">Add more services </button>
 
-
+-->
 
       
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Treatment details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table item-table table-bordered">
+          <thead>
+            <tr>
+              <th>Item & description</th>
+              <th>Unit</th>
+              <th>Price</th>
+              <th>Price breakup</th>
+            </tr>
+          </thead>
+          <tbody id="productTableBody">
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer" style="text-align: center;">
+        <button type="button" class="btn btn-primary  btn-sm" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
      <div style="text-align: center;">
       <button type="button" class="btn formbold-btn" id="generateQuotationBtn">Generate Quotation</button>
     </div>
@@ -202,73 +241,63 @@
 
     var products_data =[
     {
-      "product_name": "Healer Sealer 007",
+      "product_name": "Roofttop water proofing treatment",
+      "description": "Roofttop description",
       "unit_price":[
       {
-        "unit": "20 ltrs",
-        "price": 10000
-      },
-      {
-        "unit": "5 ltrs",
-        "price": 3000
-      },
-        {
-        "unit": "1 ltr",
-        "price": 1000
+        "unit": "sqft",
+        "price": 10000,
+        "price_breakup": {
+          "price1": "5000",
+          "price2": "3000",
+          "price3": "2000"
+        }
       }
       ]
     },
 
     {
-      "product_name": "Paintocon 2X",
+      "product_name": "Bathroom water proofing treatment",
+      "description": "Bathroom description",
       "unit_price":[
       {
-        "unit": "25 ltrs",
-        "price": 12000
-      },
-      {
-        "unit": "5 ltrs",
-        "price": 3500
-      },
-        {
-        "unit": "1 ltr",
-        "price": 900
+        "unit": "sqft",
+        "price": 12000,
+        "price_breakup": {
+          "price1": "3000",
+          "price2": "3000"      
+          }
       }
       ]
     },
 
     {
-      "product_name": "Roof Healer Sealer",
+      "product_name": "Category 3",
+      "description": "Category 3 description",
       "unit_price":[
       {
-        "unit": "30 ltrs",
-        "price": 12500
-      },
-      {
-        "unit": "3 ltrs",
-        "price": 4000
-      },
-        {
-        "unit": "1 ltr",
-        "price": 800
+        "unit": "sqft",
+        "price": 12500,
+        "price_breakup": {
+          "price1": "5000",
+           "price3": "2000"
+        }
       }
       ]
     },
 
     {
-      "product_name": "HDPE mesh",
+      "product_name": "Others",
+      "description": "Others",
       "unit_price":[
       {
-        "unit": "10 ltrs",
-        "price": 22000
-      },
-      {
-        "unit": "3 ltrs",
-        "price": 4000
-      },
-        {
-        "unit": "1 ltr",
-        "price": 600
+        "unit": "sqft",
+        "price": 22000,
+        "price_breakup": {
+          "price1": "7000",
+          "price2": "8000",
+          "price3": "7000"
+        }
       }
       ]
     }
@@ -304,6 +333,7 @@
           $('.unit-class').html(str);
           $('.quantity_class').val(1);
           $('.price_class').val(products_data[0].unit_price[0].price);
+          $('.prd_desc_class').val(products_data[0].description);
 
 
           str="";
@@ -316,11 +346,27 @@
 
 
 
+        str="";
+          for(var i=0;i<products_data.length;i++){
+            str+=  "<tr>";
+            str+=  "<td><label style='display:block;font-weight: bold;'>"+products_data[i].product_name+"</label><label style='font-style: italic'>"+products_data[i].description+"</label></td>";
+            str+=  "<td>"+products_data[i].unit_price[0].unit+"</td>";
+            str+=  "<td>"+products_data[i].unit_price[0].price+"</td>";
+            str+=  "<td>"+JSON.stringify(products_data[i].unit_price[0].price_breakup).replaceAll("\""," ").replace("{","").replace("}","")+"</td>";
+
+            str+=  "</tr>";
+          }
+
+          $('#productTableBody').html(str);
+
+
       $('#items').on('change', '.product-class', function() {
           var str="";
+          var desc="";
          
           for(var i=0;i<products_data.length;i++){
             if($(this).val()==products_data[i].product_name){
+              desc=products_data[i].description;
               for(var j=0;j<products_data[i].unit_price.length;j++){
 
               str+=  "<option value=\""+products_data[i].unit_price[j].unit+"\">"+products_data[i].unit_price[j].unit+"</option>";
@@ -329,6 +375,7 @@
           }
 
         $(this).parents('.form-row').find('.unit-class').html(str);
+        $(this).parents('.form-row').find('.prd_desc_class').val(desc);
         calculateProductPrice($(this));
       });
 
@@ -471,7 +518,7 @@
         $("#quotationSection").show();
         $("#printBtn").show();
         // Get customer details
-        var customerName = $("#name").val();
+        var customerName = $("#pname").val();
         var customerPhone = $("#phone").val();
         var customerAddress = $("#address").val();
 
@@ -491,12 +538,13 @@
         var totalPrice=0;
         $(".item-row").each(function(){
           var item = $(this).find("select[name='product[]']").val();
+          var description = $(this).find("input[name='prd_desc[]']").val();
           var quantity = $(this).find("input[name='quantity[]']").val();
           var unit = $(this).find("select[name='unit[]']").val();
           var price = $(this).find("input[name='price[]']").val();
           var amount =  price;
           var newRow = '<tr>' +
-            '<td>' + item + '</td>' +
+            '<td><label style="display:block;font-weight: bold;">' + item + '</label><label style="font-style: italic;">'+description+'</label></td>' +
             '<td>' + quantity + '</td>' +
             '<td>' + unit + '</td>' +
             '<td>' + price + '</td>' +
@@ -507,11 +555,11 @@
         });
 
 
-            var newRow = '<tr><td colspan="4" style="text-align: right;font-weight: bold;">Total Amount (A)</td><td>'+new Intl.NumberFormat('en-IN').format(totalPrice)+'</td></tr>';
-            var gst =Math.round(totalPrice*0.18);
-            newRow += '<tr><td colspan="4" style="text-align: right;font-weight: bold;">GST 18% (B)</td><td>'+new Intl.NumberFormat('en-IN').format(gst)+'</td></tr>';
-            var grantTotal = totalPrice+gst;
-            newRow += '<tr><td colspan="4" style="text-align: right;font-weight: bold;">Grand Total (C = A+B)</td><td  style="font-weight: bold;">'+new Intl.NumberFormat('en-IN').format(grantTotal)+'</td></tr>';
+            var newRow = '<tr><td colspan="4" style="text-align: right;font-weight: bold;">Total Amount</td><td>'+new Intl.NumberFormat('en-IN').format(totalPrice)+'</td></tr>';
+            //var gst =Math.round(totalPrice*0.18);
+            //newRow += '<tr><td colspan="4" style="text-align: right;font-weight: bold;">GST 18% (B)</td><td>'+new Intl.NumberFormat('en-IN').format(gst)+'</td></tr>';
+            //var grantTotal = totalPrice+gst;
+            //newRow += '<tr><td colspan="4" style="text-align: right;font-weight: bold;">Grand Total (C = A+B)</td><td  style="font-weight: bold;">'+new Intl.NumberFormat('en-IN').format(grantTotal)+'</td></tr>';
             $("#quotationTableBody").append(newRow);
 
 
