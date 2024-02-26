@@ -130,9 +130,11 @@
 }
     /* Some additional styling */
     .item-table th, .item-table td {
-      text-align: center;
+      text-align: left;
     }
 
     #quotationTableBody td:last-child{
       text-align: right;
     }
+
+
